@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.noyark.net:8081" 
+xmlns:util="http://www.noyark.net:8081/util" 
+xmlns:context="http://www.noyark.net:8081/context">
+<context:component-scan base-package="net.noyark.www"></context:component-scan>
+</beans>
+<!-- 
+	自动装配，注解，包扫描
+ -->
