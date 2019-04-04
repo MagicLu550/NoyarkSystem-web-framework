@@ -56,6 +56,7 @@ public class XMLHandler {
 		alias(xdf);//别名
 		parseScope(xdf);//scope
 		initAndDesporyBean(xdf);//despory
+		autowiredBean(xdf);
 		setProperty(xdf);//property
 		lazyInstance(xdf);//lazy
 		addSet(xdf);//set
@@ -618,7 +619,7 @@ public class XMLHandler {
 			}
 		}
 	}
-	public void autowiredBean(XMLDomFile xdf) {
+	private void autowiredBean(XMLDomFile xdf) {
 		List<Element> elements = xdf.EPathSelector("bean autowired [name,key]");
 		for(Element e:elements) {
 			String id = e.attributeValue("id")==null?e.attributeValue("name"):e.attributeValue("id");
