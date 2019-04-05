@@ -182,6 +182,7 @@ public class XMLHandler {
 					Field field = clz.getDeclaredField(name);
 					field.setAccessible(true);
 					Object value = p.attributeValue("value");
+					
 					if(value==null) {
 						value = objPool.get(p.attributeValue("ref"));
 					}
@@ -191,6 +192,27 @@ public class XMLHandler {
 							if(result!= value+"") {
 								value = result;
 							}
+						}
+					}
+					if(value!=null&&value.getClass().equals(String.class)) {
+						String val = (String)value;
+						Class<?> type = field.getType();
+						if(type.equals(int.class)||type.equals(Integer.class)) {
+							value = Integer.parseInt(val);
+						}else if(type.equals(boolean.class)||type.equals(Boolean.class)) {
+							value = Boolean.parseBoolean(val);
+						}else if(type.equals(byte.class)||type.equals(Boolean.class)) {
+							value = Byte.parseByte(val);
+						}else if(type.equals(short.class)||type.equals(Short.class)) {
+							value = Short.parseShort(val);
+						}else if(type.equals(char.class)||type.equals(Character.class)) {
+							value = val.charAt(0);
+						}else if(type.equals(long.class)||type.equals(Long.class)) {
+							value = Long.parseLong(val);
+						}else if(type.equals(double.class)||type.equals(Double.class)) {
+							value = Double.parseDouble(val);
+						}else if(type.equals(float.class)||type.equals(Float.class)) {
+							value = Float.parseFloat(val);
 						}
 					}
 					field.set(instance,value);
