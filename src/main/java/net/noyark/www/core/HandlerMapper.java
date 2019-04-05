@@ -47,8 +47,8 @@ public class HandlerMapper implements Mapper{
 							return;
 						}
 					}
+					field.set(o,field.getType().newInstance());
 				}
-				field.set(o,field.getType().newInstance());
 			}
 		}
 	}
