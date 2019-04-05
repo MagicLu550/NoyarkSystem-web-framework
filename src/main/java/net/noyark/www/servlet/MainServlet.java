@@ -67,7 +67,7 @@ public class MainServlet extends HttpServlet {
 		}
 		try {
 			handlerMapper.handleMap(allBeans);
-		} catch (IllegalArgumentException | IllegalAccessException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}

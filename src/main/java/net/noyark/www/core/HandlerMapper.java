@@ -20,7 +20,7 @@ import net.noyark.www.interf.NoyarkAbstractApplicationContext;
  */
 public class HandlerMapper implements Mapper{
 	Map<String, Handler> mapper = new HashMap<String, Handler>();
-	public void handleMap(List<Object> controllers) throws IllegalArgumentException, IllegalAccessException {
+	public void handleMap(List<Object> controllers) throws IllegalArgumentException, IllegalAccessException, InstantiationException {
 		for(Object o:controllers) {
 			RequestMapping classRm = o.getClass().getDeclaredAnnotation(RequestMapping.class);
 			String parentPath = "";
@@ -44,9 +44,11 @@ public class HandlerMapper implements Mapper{
 					for(Object con:controllers) {
 						if(con.getClass().equals(field.getType())) {
 							field.set(o,con);
+							return;
 						}
 					}
 				}
+				field.set(o,field.getType().newInstance());
 			}
 		}
 	}

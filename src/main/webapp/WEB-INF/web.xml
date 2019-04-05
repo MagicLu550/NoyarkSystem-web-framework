@@ -13,7 +13,7 @@
     <description></description>
     <display-name>MainServlet</display-name>
     <servlet-name>MainServlet</servlet-name>
-    <servlet-class>net.noyark.www.core.MainServlet</servlet-class>
+    <servlet-class>net.noyark.www.servlet.MainServlet</servlet-class>
     <init-param>
       <param-name>contextConfigLocation</param-name>
       <param-value>classpath:noyark.xml</param-value>

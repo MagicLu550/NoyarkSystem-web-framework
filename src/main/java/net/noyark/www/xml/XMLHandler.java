@@ -20,8 +20,6 @@ import java.util.Set;
 import org.dom4j.Attribute;
 import org.dom4j.DocumentException;
 import org.dom4j.Element;
-
-
 import cn.gulesberry.www.exception.IllegalMappingException;
 import cn.gulesberry.www.exception.IndexLengthException;
 import cn.gulesberry.www.helper.InstanceQueryer;
@@ -52,7 +50,7 @@ public class XMLHandler {
 		parsePropertiesFile(xdf);//properties file
 		parseCommonBean(xdf);//解析只有id和name的bean
 		parseFactoryBean(xdf);//解析有工厂方法的
-		ParseOtherBeanFactoryBean(xdf);//对象工厂
+		parseOtherBeanFactoryBean(xdf);//对象工厂
 		alias(xdf);//别名
 		parseScope(xdf);//scope
 		initAndDesporyBean(xdf);//despory
@@ -102,7 +100,7 @@ public class XMLHandler {
 		}
 	}
 	//factory-class method
-	private void ParseOtherBeanFactoryBean(XMLDomFile xdf) throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+	private void parseOtherBeanFactoryBean(XMLDomFile xdf) throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
 		List<Element> list = xdf.getElementsByAttributesAndNameOnlyThese("bean","id","factory-bean","factory-method");
 		list.addAll(xdf.getElementsByAttributesAndNameOnlyThese("bean","name","factory-bean","factory-method"));
 		for(Element e:list) {
@@ -209,19 +207,42 @@ public class XMLHandler {
 	public void setListArray(XMLDomFile xdf) throws Exception{
 		addCollection(xdf, "list","array",List.class);
 	}
-	public void lazyInstance(XMLDomFile xdf) throws ClassNotFoundException, InstantiationException, IllegalAccessException {
+	public void lazyInstance(XMLDomFile xdf) throws ClassNotFoundException, InstantiationException, IllegalAccessException, NoSuchMethodException, SecurityException {
 		List<Element> list = xdf.getElementsByAttributesAndName("bean","id","class","lazy-init");
 		list.addAll(xdf.getElementsByAttributesAndName("bean","name","class","lazy-init"));
 		for(Element e:list) {
 			String id = e.attributeValue("id")==null?e.attributeValue("name"):e.attributeValue("id");
 			Class<?> clz = Class.forName(e.attributeValue("class"));
 			boolean isLazy = Boolean.parseBoolean(e.attributeValue("lazy-init"));
-			Object o = objPool.get(id);
-			if(o==null) {
-				objPool.put(id,null);
-			}
 			if(isLazy) {
-				objPool.put(id,new LazyInstance(clz));
+				String initMethod = e.attributeValue("init-method");
+				String factoryMethod = e.attributeValue("factory-method");
+				String factoryBean = e.attributeValue("factory-bean");
+				String desportyMethod = e.attributeValue("despory-method");
+				if(initMethod!=null&&factoryMethod!=null&&factoryMethod!=null) {
+					Method init = clz.getMethod(initMethod);
+					Method despory = clz.getMethod(desportyMethod);
+					Object bean = objPool.get(factoryBean);
+					Method  method = null;
+					if(factoryBean!=null) {
+						method = bean.getClass().getDeclaredMethod(factoryMethod);
+					}
+					objPool.put(id,new LazyInstance(clz, init,despory, method, bean));
+				}
+				if(initMethod!=null) {
+					Method init = clz.getMethod(initMethod);
+					objPool.put(id, new LazyInstance(clz, init,clz.getDeclaredMethod(desportyMethod),null,null));
+					return;
+				}
+				if(factoryBean!=null) {
+					Object bean = objPool.get(factoryBean);
+					Method  method = null;
+					if(factoryBean!=null) {
+						method = bean.getClass().getDeclaredMethod(factoryMethod);
+					}
+					objPool.put(id,new LazyInstance(clz, null, null, method, bean));
+				}
+				objPool.put(id,new LazyInstance(clz,null,null,null,null));
 			}else {
 				objPool.put(id, clz.newInstance());
 			}
@@ -620,7 +641,7 @@ public class XMLHandler {
 		}
 	}
 	private void autowiredBean(XMLDomFile xdf) {
-		List<Element> elements = xdf.EPathSelector("bean autowired [name,key]");
+		List<Element> elements = xdf.EPathSelector("bean autowired [key]");
 		for(Element e:elements) {
 			String id = e.attributeValue("id")==null?e.attributeValue("name"):e.attributeValue("id");
 			String autowired = e.attributeValue("autowried");

@@ -44,7 +44,12 @@ public class NoyarkApplicationContext implements NoyarkAbstractApplicationContex
 				Instance instance;
 				if(o instanceof Instance) {
 					instance = ((Instance)o);
-					return instance.instance();
+					Object ins = instance.instance();
+					Method desporyMethod = ((Instance) o).getDesporyMethod();
+					if(desporyMethod!=null) {
+						handler.getDesporyMethod().put(ins, desporyMethod);
+					}
+					return ins;
 				}
 			}catch(Exception e) {
 			}
