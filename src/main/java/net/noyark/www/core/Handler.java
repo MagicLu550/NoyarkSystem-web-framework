@@ -55,7 +55,7 @@ public class Handler implements HandlerBase{
 			}
 			return excute(os);
 		}catch(Exception e) {
-			return parseException(e);
+			return parseException((Exception)e.getCause());
 		}
 	}
 	//req参数
