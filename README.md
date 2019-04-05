@@ -1,6 +1,7 @@
 [![LICENSE](https://img.shields.io/badge/license-Noyark-green.svg)](NoyarkLICENSE.md)
 ![VERSION](https://img.shields.io/badge/version-0.3.0NEW-blue.svg)
 ![Build](https://img.shields.io/badge/build-passing-green.svg)
+[![en](https://img.shields.io/badge/readme-english-orange.svg)][README_EN.md]
 # Noyark-System Web轻量级框架
 *测试版，目前没有优化代码和标准注释*
 借鉴了`spring`框架风格,作者日常作品
