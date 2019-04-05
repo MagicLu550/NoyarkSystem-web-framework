@@ -2,6 +2,8 @@
 ![VERSION](https://img.shields.io/badge/version-0.3.0NEW-blue.svg)
 ![Build](https://img.shields.io/badge/build-passing-green.svg)
 [![zh](https://img.shields.io/badge/readme-chinese-orange.svg)](README.md)
+
+![logo](logo1.jpeg)
 # Noyark-System Web Lightweight Framework
 * Beta, there are currently no optimized code and standard comments*
 Drawing on the `spring` framework style, the author's daily works
