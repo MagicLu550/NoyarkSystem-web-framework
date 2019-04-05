@@ -75,9 +75,9 @@ public class Handler implements HandlerBase{
 			if(handle!=null) {
 				Class<?> clazz = handle.value();
 				if(e.getClass().getSuperclass().equals(clazz)) {
-					return m.invoke(object);
+					return m.invoke(object,e);
 				}else if(e.getClass().equals(clazz)) {
-					return m.invoke(object);
+					return m.invoke(object,e);
 				}
 			}
 		}
