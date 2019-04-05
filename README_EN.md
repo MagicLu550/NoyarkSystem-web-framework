@@ -1,5 +1,5 @@
 [![LICENSE](https://img.shields.io/badge/license-Noyark-green.svg)](NoyarkLICENSE.md)
-![VERSION](https://img.shields.io/badge/version-0.3.0NEW-blue.svg)
+![VERSION](https://img.shields.io/badge/version-0.0.2-green.svg)
 ![Build](https://img.shields.io/badge/build-passing-green.svg)
 [![zh](https://img.shields.io/badge/readme-chinese-orange.svg)](README.md)
 
