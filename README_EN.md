@@ -57,7 +57,7 @@ Configure the following jar package coordinates in `denpendencies` of pom.xml
 <dependency>
   <groupId>net.noyark</groupId>
   <artifactId>noyark-system</artifactId>
-  <version>0.0.2</version>
+  <version>0.0.2.1</version>
 </dependency>
 <dependency>
       <groupId>dom4j</groupId>
