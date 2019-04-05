@@ -276,11 +276,15 @@ Value是构造方法属性的值，type是该属性的类型，容器会根据co
 noyark-system支持注入表达式，语法
 `#{bean.property.propertyInside}`
 通过property等的value=‘’“来指定即可
-property对象：beanID.property的name.propertyKey
-普通值：beanID.fieldname
-set，数组，list: beanID.name[index]
-map值：beanID.mapName.key
-导入的properties:propertiesID.key
+
+* property对象：beanID.property的name.propertyKey
+* 普通值：beanID.fieldname
+* set，数组，list: beanID.name[index]
+* map值：beanID.mapName.key
+* 导入的properties:propertiesID.key,其中如果有多个点，可以用叹号分隔
+```xml
+#{config.!system.bean.let!}
+```
 * 别名机制
 你可以为一个bean起别名
 ```xml
