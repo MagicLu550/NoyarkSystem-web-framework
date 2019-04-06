@@ -57,7 +57,7 @@ servlet中的param-value是noyarksystem配置文件路径,class path:前缀可�
   <groupId>net.noyark</groupId>
   <artifactId>noyark-system</artifactId>
   <version>0.0.2.1</version>
-</dependency>
+</dependency> 
 <dependency> 
       <groupId>dom4j</groupId>  
       <artifactId>dom4j</artifactId>  
@@ -373,3 +373,11 @@ public String handleException(Exception e){
 	return null;
 }
 ```
+#### 附文：
+> 如何打开参数识别？
+eclipse： 
+换成jdk1.8以上版本，找到windows>preferences(mac是Eclipse>preferences)>java>Complier,找到Classfile Generation，打开最后一个选项即可
+idea:
+Preferences -> "Build, Execution, Deployment" -> Compiler -> "Java Compiler"
+
+"Project bytecode version"设置为1.8
