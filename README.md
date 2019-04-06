@@ -379,6 +379,4 @@ public String handleException(Exception e){
 换成jdk1.8以上版本，找到windows>preferences(mac是Eclipse>preferences)>java>Complier,找到Classfile Generation，打开最后一个选项即可
 
 >idea:
-Preferences -> "Build, Execution, Deployment" -> Compiler -> "Java Compiler"
-
-"Project bytecode version"设置为1.8
+Preferences -> "Build, Execution, Deployment" -> Compiler -> "Java Compiler","Project bytecode version"设置为1.8
